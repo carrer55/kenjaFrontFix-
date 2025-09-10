@@ -59,9 +59,9 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
       case 'accounting_software':
         return role === 'admin';
       case 'tax_simulation':
-        return role === 'admin';
+        return true; // Enterpriseプランでは全ユーザーが利用可能
       case 'travel_regulation_management':
-        return role === 'admin';
+        return role === 'admin' || (plan === 'Enterprise' && (role === 'department_admin' || role === 'approver'));
       case 'department_management':
         return role === 'admin' || (role === 'department_admin' && plan === 'Enterprise');
       case 'approval_actions':
@@ -70,6 +70,16 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
         return role === 'admin';
       case 'view_department_applications':
         return role === 'admin' || role === 'department_admin';
+      case 'advanced_reporting':
+        return plan === 'Enterprise';
+      case 'api_access':
+        return plan === 'Pro' || plan === 'Enterprise';
+      case 'custom_workflows':
+        return plan === 'Enterprise';
+      case 'audit_logs':
+        return plan === 'Enterprise' && role === 'admin';
+      case 'bulk_operations':
+        return plan === 'Enterprise';
       default:
         return true; // デフォルトは許可
     }

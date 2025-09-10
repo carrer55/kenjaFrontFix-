@@ -27,6 +27,9 @@ import ApproverDashboard from './ApproverDashboard';
 import UserManagement from './UserManagement';
 import AdminApplicationList from './AdminApplicationList';
 import AdminApplicationDetail from './AdminApplicationDetail';
+import AdvancedReporting from './AdvancedReporting';
+import AuditLogs from './AuditLogs';
+import ApiManagement from './ApiManagement';
 import { useUserProfile } from './UserProfileProvider';
 
 function Dashboard() {
@@ -106,6 +109,12 @@ function Dashboard() {
         return <AdminApplicationList onNavigate={navigateToView} />;
       case 'admin-application-detail':
         return <AdminApplicationDetail onNavigate={navigateToView} />;
+      case 'advanced-reporting':
+        return <AdvancedReporting onNavigate={navigateToView} />;
+      case 'audit-logs':
+        return <AuditLogs onNavigate={navigateToView} />;
+      case 'api-management':
+        return <ApiManagement onNavigate={navigateToView} />;
       case 'application-detail':
         return applicationDetail ? (
           <ApplicationDetail 

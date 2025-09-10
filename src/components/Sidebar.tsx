@@ -8,7 +8,12 @@ import {
   Settings, 
   LogOut,
   User,
-  X
+  X,
+  BarChart3,
+  Shield,
+  Users,
+  FileText,
+  Bell
 } from 'lucide-react';
 import { auth } from '../lib/auth';
 import { useUserProfile } from './UserProfileProvider';
@@ -20,6 +25,11 @@ const menuItems = [
   { icon: FolderOpen, label: '出張精算', active: false },
   { icon: Calculator, label: '節税シミュレーション', active: false },
   { icon: Settings, label: '出張規定管理', active: false },
+  { icon: BarChart3, label: '高度なレポート', active: false, permission: 'advanced_reporting' },
+  { icon: Shield, label: '監査ログ', active: false, permission: 'audit_logs' },
+  { icon: Users, label: 'ユーザー管理', active: false, permission: 'user_management' },
+  { icon: FileText, label: 'API管理', active: false, permission: 'api_access' },
+  { icon: Bell, label: '承認リマインド設定', active: false, permission: 'custom_workflows' },
   { icon: User, label: 'マイページ（設定）', active: false },
 ];
 
@@ -50,6 +60,16 @@ function Sidebar({ isOpen, onClose, onNavigate, currentView = 'dashboard' }: Sid
         return hasPermission('tax_simulation');
       case '出張規定管理':
         return hasPermission('travel_regulation_management');
+      case '高度なレポート':
+        return hasPermission('advanced_reporting');
+      case '監査ログ':
+        return hasPermission('audit_logs');
+      case 'ユーザー管理':
+        return hasPermission('user_management');
+      case 'API管理':
+        return hasPermission('api_access');
+      case '承認リマインド設定':
+        return hasPermission('custom_workflows');
       default:
         return true;
     }
@@ -104,6 +124,21 @@ function Sidebar({ isOpen, onClose, onNavigate, currentView = 'dashboard' }: Sid
             } else if (item.label === '出張規定管理') {
               clickHandler = () => handleMenuClick('travel-regulation-management');
               isActive = currentView === 'travel-regulation-management' || currentView === 'travel-regulation-creation' || currentView === 'travel-regulation-history';
+            } else if (item.label === '高度なレポート') {
+              clickHandler = () => handleMenuClick('advanced-reporting');
+              isActive = currentView === 'advanced-reporting';
+            } else if (item.label === '監査ログ') {
+              clickHandler = () => handleMenuClick('audit-logs');
+              isActive = currentView === 'audit-logs';
+            } else if (item.label === 'ユーザー管理') {
+              clickHandler = () => handleMenuClick('user-management');
+              isActive = currentView === 'user-management';
+            } else if (item.label === 'API管理') {
+              clickHandler = () => handleMenuClick('api-management');
+              isActive = currentView === 'api-management';
+            } else if (item.label === '承認リマインド設定') {
+              clickHandler = () => handleMenuClick('approval-reminder-settings');
+              isActive = currentView === 'approval-reminder-settings';
             } else if (item.label === 'マイページ（設定）') {
               clickHandler = () => handleMenuClick('my-page');
               isActive = currentView === 'my-page';
